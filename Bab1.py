@@ -1,6 +1,9 @@
 import math
 import matplotlib.pyplot as peta
 from collections import Counter
+import pandas as pd
+import seaborn as sns
+
 
 #Nilai Final Exam Statistika Elementer
 dataD = [
@@ -124,18 +127,48 @@ def jumlah(totalData) :
     return jumlah
 
 
-#Coding untuk histogram
-#peta.hist(dataD,edgecolor="white")
-#peta.xlabel("HP")
-#peta.ylabel("Banyak Mobil")
-#peta.title("Car Battery Life")
 
-#Coding box plot
-#peta.boxplot(dataD)
+# Visual
 
-#peta.show()
 
-#Coding untuk stem leaf
+
+def tabelFrekuensi(totalData) :
+    freq_table = pd.Series(totalData).value_counts().sort_index()
+    freq_df = pd.DataFrame({'Nilai': freq_table.index, 'Frekuensi': freq_table.values})
+    print(freq_df)
+
+def histogram(totalData) :
+    peta.hist(totalData,edgecolor='black')
+    peta.title('Histogram')
+    peta.xlabel('Nilai')
+    peta.ylabel('Frekuensi')
+    peta.show()
+
+
+def barChart(totalData) :
+    freq_table = pd.Series(totalData).value_counts().sort_index()
+    freq_table.plot(kind='bar', color='skyblue', edgecolor='black')
+    peta.title('Bar Chart')
+    peta.xlabel('Nilai')
+    peta.ylabel('Frekuensi')
+    peta.xticks(rotation=0)
+    peta.grid(axis='y')
+    peta.show()
+
+def pieChart(totalData) :
+    freq_table = pd.Series(totalData).value_counts().sort_index()
+    freq_table.plot(kind='pie', autopct='%1.1f%%', startangle=90, colormap='Set3')
+    peta.title('Pie Chart')
+    peta.ylabel('')
+    peta.show()
+
+def boxplot(totalData) :
+    sns.boxplot(y=totalData)
+    peta.title('Boxplot')
+    peta.ylabel('Nilai')
+    peta.grid(True)
+    peta.show()
+
 def stemPlotD(totalData) :
     totalData.sort()
 
@@ -146,7 +179,7 @@ def stemPlotD(totalData) :
         leaf = nomor % 10
         stem_leaf.setdefault(stem, []).append(leaf)
 
-    # Tampilkan
+    
     for stem, leaves in stem_leaf.items():
         leaf_str = ' '.join(str(leaf) for leaf in leaves)
         print(f"{stem} | {leaf_str}")
@@ -162,22 +195,9 @@ def stemPlotC(totalData) :
         leaf = int(round((number - stem) * 10))  
         stem_leaf.setdefault(stem, []).append(leaf)
 
-    # Cetak stem plot
     print("Stem | Leaf")
     print("------------")
     for stem in sorted(stem_leaf):
         leaves = ' '.join(str(leaf) for leaf in stem_leaf[stem])
         print(f" {stem}   | {leaves}")
-
-def tabelFrekuensi(totalData) :
-    # Hitung frekuensi tiap nilai
-    frekuensi = Counter(totalData)
-
-    # Cetak tabel frekuensi
-    print("Nilai\tFrekuensi")
-    for value in sorted(frekuensi):
-        print(f"{value}\t{frekuensi[value]}")
-
-
-
 
