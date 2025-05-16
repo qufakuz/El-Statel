@@ -26,6 +26,7 @@ dataC = [
 
 
 
+
 #Coding untuk rata-rata atau mean
 def rataRata(totalData):
     angka = 0
@@ -200,4 +201,15 @@ def stemPlotC(totalData) :
     for stem in sorted(stem_leaf):
         leaves = ' '.join(str(leaf) for leaf in stem_leaf[stem])
         print(f" {stem}   | {leaves}")
+
+def scatterPlot(a,b) :
+
+    peta.scatter(a, b, color='blue', label='Data Titik')
+    peta.title('Scatter Plot')
+    peta.xlabel('Sumbu X')
+    peta.ylabel('Sumbu Y')
+    peta.legend()
+
+    peta.show()
+
 
